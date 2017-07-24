@@ -132,6 +132,13 @@ function UpdateHistoryOnPan(minShown, maxShown)
                 actualMinX = data[0].x;
 				actualMaxX = data[data.length-1].x;
                 historyChart.update();
+
+                if ((maxShown+cache) > maxX)
+                {
+                    //no more data, but maxX can be increased
+                    maxX = data[data.length-1].x;
+                    historyChart.options.pan.rangeMax.x = maxX;
+                }
             }
             alreadyLoading = false;
         }).catch(function(reason){
